@@ -106,12 +106,46 @@ The website in the URL.http://vikashsenthil.student.saveetha.in:8000/volume/
 </html>
 
 ```
+VIEWS.PY:
+
+```
+from django.shortcuts import render
+def home(request):
+    context = {}
+    context["a"] = ''
+    context["b"] = ''
+    context["c"] = ''
+    if request.method == 'POST':
+        a = request.POST.get('ADJACENT', '')
+        b = request.POST.get('OPPOSITE', '')
+
+        c=int(a)**2+int(b)**2
+        context['c'] = c
+        context['a'] = a
+        context['b'] =b
+
+    return render(request, "cal/home.html", context)
+```
+URLS.PY:
+
+```
+from django.urls import path
+from cal import views
+urlpatterns = [
+ path('admin/', admin.site.urls),
+ path('home/',views.home,name="home"),
+ path('',views.home ,name="cal")
+]
+
+```
 
 # OUTPUT:
+
 
 ![WhatsApp Image 2023-01-29 at 15 18 43](https://user-images.githubusercontent.com/119433834/215319950-0008d644-4585-40d9-bf5c-a17f38bc130a.jpg)
 
 
 # RESULT:
+
 
 The program is executed succesfully
